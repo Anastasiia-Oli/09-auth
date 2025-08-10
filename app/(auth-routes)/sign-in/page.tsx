@@ -1,24 +1,22 @@
 "use client";
 
-import css from "./SignUpPage.module.css";
+import css from "./SignInPage.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { registerUser } from "@/lib/clientApi";
+import { login } from "@/lib/clientApi";
 import { AxiosError } from "axios";
 
-export default function SignUp() {
+export default function SignIn() {
   const router = useRouter();
   const [error, setError] = useState("");
 
   const handleSubmit = async (formData: FormData) => {
-    console.log("Register payload:", formData);
     try {
       const formValues = {
         email: formData.get("email") as string,
         password: formData.get("password") as string,
       };
-      const res = await registerUser(formValues);
-      console.log("register response:", res);
+      const res = await login(formValues);
 
       if (res) {
         router.push("/profile");
@@ -27,22 +25,17 @@ export default function SignUp() {
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        // setError(error.response?.data?.message || "Server error");
-        console.error(
-          "register error:",
-          error.response?.status,
-          error.response?.data
-        );
+        setError(error.response?.data?.message || "Server error");
       } else {
-        // setError("Oops... some error");
-        console.error("unexpected error:", error);
+        setError("Oops... some error");
       }
     }
   };
   return (
     <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Sign up</h1>
       <form action={handleSubmit} className={css.form}>
+        <h1 className={css.formTitle}>Sign in</h1>
+
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input
@@ -67,7 +60,7 @@ export default function SignUp() {
 
         <div className={css.actions}>
           <button type="submit" className={css.submitButton}>
-            Register
+            Log in
           </button>
         </div>
 

@@ -24,7 +24,17 @@ export async function registerUser(
   params: RegisterRequest
 ): Promise<RegisterUserResponse> {
   const response = await nextServer.post<RegisterUserResponse>(
-    "/auth/sign-up",
+    "/auth/register",
+    params
+  );
+  return response.data;
+}
+
+export async function login(
+  params: RegisterRequest
+): Promise<RegisterUserResponse> {
+  const response = await nextServer.post<RegisterUserResponse>(
+    "/auth/login",
     params
   );
   return response.data;

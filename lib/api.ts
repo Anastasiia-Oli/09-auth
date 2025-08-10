@@ -35,9 +35,6 @@ export async function fetchNotes(
 
   const response = await nextServer.get<FetchNotesResponse>("/notes", {
     params,
-    // headers: {
-    //   Authorization: `Bearer ${API_KEY}`,
-    // },
   });
   return response.data;
 }
