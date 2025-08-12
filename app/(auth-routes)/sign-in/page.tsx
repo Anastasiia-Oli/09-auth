@@ -18,10 +18,10 @@ export default function SignIn() {
         email: formData.get("email") as string,
         password: formData.get("password") as string,
       };
-      const user = await login(formValues);
+      const res = await login(formValues);
 
-      if (user) {
-        setUser(user);
+      if (res) {
+        setUser(res);
         router.push("/profile");
       } else {
         setError("Invalid email or password");

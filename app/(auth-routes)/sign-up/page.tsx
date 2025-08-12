@@ -14,15 +14,12 @@ export default function SignUp() {
 
   const handleSubmit = async (formData: FormData) => {
     setError("");
-
-    console.log("Register payload:", formData);
     try {
       const formValues = {
         email: formData.get("email") as string,
         password: formData.get("password") as string,
       };
       const res = await registerUser(formValues);
-      console.log("register response:", res);
 
       if (res) {
         setUser(res);

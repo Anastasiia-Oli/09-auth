@@ -8,13 +8,16 @@ import { logout } from "@/lib/clientApi";
 
 export default function AuthNavigation() {
   const router = useRouter();
-  const { user, isAuthenticated, clearIsAuthenticated } = useAuthUserStore();
+  const { user, isAuthenticated } = useAuthUserStore();
+  const clearIsAuthenticated = useAuthUserStore(
+    (state) => state.clearIsAuthenticated
+  );
 
-  function handleLogout() {
+  const handleLogout = async () => {
+    await logout();
     clearIsAuthenticated();
-    logout();
     router.push("/sign-in");
-  }
+  };
 
   return (
     <>

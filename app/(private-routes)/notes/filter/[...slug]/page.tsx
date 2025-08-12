@@ -1,6 +1,6 @@
 import { NoteTag } from "@/types/note";
 import Notes from "./Notes.client";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/clientApi";
 import { Metadata } from "next";
 
 type Props = {
