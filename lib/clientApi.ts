@@ -13,6 +13,10 @@ export interface RegisterUserResponse {
   avatar: string;
 }
 
+export type LogoutResponse = {
+  message?: string;
+};
+
 const baseURL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 const nextServer = axios.create({
@@ -37,5 +41,10 @@ export async function login(
     "/auth/login",
     params
   );
+  return response.data;
+}
+
+export async function logout(): Promise<LogoutResponse> {
+  const response = await nextServer.post<LogoutResponse>("/auth/logout");
   return response.data;
 }

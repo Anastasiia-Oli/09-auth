@@ -5,12 +5,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "@/lib/clientApi";
 import { AxiosError } from "axios";
+import { useAuthUserStore } from "@/lib/store/authStore";
 
 export default function SignUp() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const setUser = useAuthUserStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
+    setError("");
+
     console.log("Register payload:", formData);
     try {
       const formValues = {
@@ -21,20 +25,23 @@ export default function SignUp() {
       console.log("register response:", res);
 
       if (res) {
+        setUser(res);
         router.push("/profile");
       } else {
         setError("Invalid email or password");
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        // setError(error.response?.data?.message || "Server error");
-        console.error(
-          "register error:",
-          error.response?.status,
-          error.response?.data
-        );
+        const status = error.response?.status;
+        const message = error.response?.data?.message;
+
+        if (status === 400 && message === "User exists") {
+          setError("User wiht such email already exists");
+        } else {
+          setError(message || "Server error");
+        }
       } else {
-        // setError("Oops... some error");
+        setError("Oops... some error");
         console.error("unexpected error:", error);
       }
     }
