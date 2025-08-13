@@ -2,7 +2,7 @@
 
 import css from "./EditProfilePage.module.css";
 import Image from "next/image";
-import { updateMe, getMe } from "@/lib/clientApi";
+import { updateMe, getMe } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";

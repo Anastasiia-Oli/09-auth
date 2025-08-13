@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { parse } from "cookie";
 import { NextRequest, NextResponse } from "next/server";
-import { checkServerSession } from "./lib/serverApi";
+import { checkServerSession } from "./lib/api/serverApi";
 
 const privateRoutes = ["/profile", "/notes"];
 const publicRoutes = ["/sign-in", "/sign-up"];
