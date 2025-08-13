@@ -105,3 +105,13 @@ export async function fetchNoteById(id: string): Promise<Note> {
   const response = await nextServer.get<Note>(`/notes/${id}`);
   return response.data;
 }
+
+export type UpdateUserRequest = {
+  email?: string;
+  username: string;
+};
+
+export const updateMe = async (params: UpdateUserRequest) => {
+  const res = await nextServer.patch<User>("/users/me", params);
+  return res.data;
+};
