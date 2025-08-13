@@ -2,8 +2,27 @@ import Link from "next/link";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
 import { getMeServer } from "@/lib/serverApi";
+import { Metadata } from "next";
 
 // add meta tags later
+export const metadata: Metadata = {
+  title: "Your Profile | NoteHub",
+  description: "View and manage your NoteHub profile information",
+  openGraph: {
+    title: "Your Profile | NoteHub",
+    description:
+      "Check your profile details, update your personal information, and manage your NoteHub account.",
+    url: "https://09-auth-lemon-nine.vercel.app/profile",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Note Hub",
+      },
+    ],
+  },
+};
 
 export default async function Profile() {
   const user = await getMeServer();
