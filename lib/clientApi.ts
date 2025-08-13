@@ -56,7 +56,7 @@ export const getMe = async () => {
   return data;
 };
 
-// notes requests
+// ---------- notes requests
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -92,28 +92,16 @@ export async function fetchNotes(
 export async function createNote(
   params: Omit<Note, "id" | "createdAt" | "updatedAt">
 ): Promise<Note> {
-  const response = await nextServer.post<Note>("/notes", params, {
-    // headers: {
-    //   Authorization: `Bearer ${API_KEY}`,
-    // },
-  });
+  const response = await nextServer.post<Note>("/notes", params);
   return response.data;
 }
 
 export async function deleteNote(id: number): Promise<Note> {
-  const response = await nextServer.delete<Note>(`/notes/${id}`, {
-    // headers: {
-    //   Authorization: `Bearer ${API_KEY}`,
-    // },
-  });
+  const response = await nextServer.delete<Note>(`/notes/${id}`);
   return response.data;
 }
 
 export async function fetchNoteById(id: string): Promise<Note> {
-  const response = await nextServer.get<Note>(`/notes/${id}`, {
-    // headers: {
-    //   Authorization: `Bearer ${API_KEY}`,
-    // },
-  });
+  const response = await nextServer.get<Note>(`/notes/${id}`);
   return response.data;
 }

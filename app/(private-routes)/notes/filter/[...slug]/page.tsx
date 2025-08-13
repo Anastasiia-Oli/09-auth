@@ -1,6 +1,6 @@
 import { NoteTag } from "@/types/note";
 import Notes from "./Notes.client";
-import { fetchNotes } from "@/lib/clientApi";
+import { fetchNotesServer } from "@/lib/serverApi";
 import { Metadata } from "next";
 
 type Props = {
@@ -43,6 +43,6 @@ export default async function NotesPage({ params }: Props) {
   const tag = isValidTag ? (tagCandidate as NoteTag) : undefined;
 
   console.log(tag);
-  const initialData = await fetchNotes("", 1, tag);
+  const initialData = await fetchNotesServer("", 1, tag);
   return <Notes tag={tag} initialData={initialData} />;
 }
